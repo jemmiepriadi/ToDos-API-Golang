@@ -1,0 +1,147 @@
+definitions:
+  main.Profile:
+    properties:
+      DateInput:
+        example: "2022-07-05"
+        type: string
+      Description:
+        example:
+        - Bekerja
+        items:
+          type: string
+        type: array
+      Name:
+        example: Jemmi
+        type: string
+      date:
+        example: "0001-01-01T07:00:00+07:00"
+        type: string
+    type: object
+  main.Response:
+    properties:
+      code:
+        example: "00"
+        type: string
+      data:
+        type: object
+      message:
+        example: Succesful
+        type: string
+    type: object
+  model.Profile:
+    properties:
+      DateInput:
+        example: "2022-07-05"
+        type: string
+      Description:
+        example: Berenang
+        type: string
+      Name:
+        example: Jemmi
+        type: string
+      date:
+        example: "0001-01-01T07:00:00+07:00"
+        type: string
+      id:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /ToDo:
+    post:
+      consumes:
+      - application/json
+      description: for save user profile data
+      operationId: save-profile
+      parameters:
+      - description: request body json
+        in: body
+        name: requestbody
+        required: true
+        schema:
+          $ref: '#/definitions/main.Profile'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Response'
+      summary: Create a ToDo
+  /ToDo/id:
+    delete:
+      consumes:
+      - application/json
+      description: for deleting user profile data
+      operationId: delete-ToDo
+      parameters:
+      - description: request body json
+        in: body
+        name: requestbody
+        required: true
+        schema:
+          $ref: '#/definitions/main.Profile'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Response'
+      summary: Delete a ToDo
+    put:
+      consumes:
+      - application/json
+      description: for update user ToDo data
+      operationId: update-Todo
+      parameters:
+      - description: request body json
+        in: body
+        name: requestbody
+        required: true
+        schema:
+          $ref: '#/definitions/main.Profile'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Response'
+      summary: Update a ToDo
+  /ToDos:
+    get:
+      description: get user ToDo List
+      operationId: get-profile
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/main.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Profile'
+              type: object
+      summary: Get User Todo List
+  /ToDos/id:
+    get:
+      description: get user ToDo List
+      operationId: getById-profile
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/main.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/model.Profile'
+              type: object
+      summary: Get User Todo List
+swagger: "2.0"
